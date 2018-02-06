@@ -7,10 +7,8 @@
     "require": {
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
-        "friendsofphp/php-cs-fixer": "^2.10",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "pusher/pusher-php-server": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
