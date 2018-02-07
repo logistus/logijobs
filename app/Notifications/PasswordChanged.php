@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class PasswordChanged extends Notification
+{
     use Queueable;
 
     /**
