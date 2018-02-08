@@ -82,4 +82,9 @@ class ResumeController extends Controller
     {
         //
     }
+
+    public function change_resume_status($resume_id) {
+        Resume::where('id', $resume_id)->firstOrFail()->toggleStatus();
+        echo Resume::where('id', $resume_id)->firstOrFail()->toJson();
+    }
 }

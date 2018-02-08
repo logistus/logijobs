@@ -17,7 +17,10 @@ class CreateResumesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->timestamps();
+            $table->string('language');
+            $table->boolean('status')->default(false);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

@@ -19,5 +19,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/settings', "HomeController@settings");
 Route::get('/resumes', "HomeController@resumes");
 
+Route::get('change_resume_status/{resume_id}', 'ResumeController@change_resume_status');
+
 Route::post('/account_settings', 'UserController@update');
 Route::post('/change_password', 'UserController@changePassword');

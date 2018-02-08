@@ -7,11 +7,13 @@ use App\User;
 use App\City;
 use App\Resume;
 use Auth;
+use Jenssegers\Date\Date;
 
 class HomeController extends Controller
 {
   public function __construct() {
       $this->middleware("auth")->except(["index", "updated"]);
+      Date::setLocale(app()->getLocale());
   }
 
   public function index()
