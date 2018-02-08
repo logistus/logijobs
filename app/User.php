@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ConfirmEmail;
+use App\Resume;
 
 class User extends Authenticatable
 {
@@ -43,5 +44,9 @@ class User extends Authenticatable
     public function changePassword($new_password) {
         $this->password = bcrypt($new_password);
         $this->save();
+    }
+
+    public function resumes() {
+        return $this->hasMany('App\Resume');
     }
 }

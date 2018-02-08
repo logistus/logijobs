@@ -20,7 +20,7 @@
             <i class="dropdown icon"></i>
             <div class="menu">
               <a href="/settings" class="item">{{ __('commons.settings') }}</a>
-              <a href="#" class="item">{{ __('commons.resumes') }}</a>
+              <a href="/resumes" class="item">{{ __('commons.resumes') }}</a>
               <a href="#" class="item">{{ __('commons.applied_jobs') }}</a>
               <a href="#" class="item">{{ __('commons.saved_searches') }}</a>
               <a href="#" class="item">{{ __('commons.messages') }}</a>

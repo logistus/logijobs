@@ -37,5 +37,8 @@ return [
     'register_completed_message' => 'Kayıt olduğunuz için teşekkür ederiz. Hesabınızı aktifleştirmek için aşağıdaki butona tıklamalısınız.',
     'verify_account' => 'Hesap Onaylama',
     'register_complete' => 'Kayıt olduğunuz için teşekkür ederiz. Hesabınızı aktifleştirmek için eposta adresinize gönderilen bağlantıya tıklayın.',
-    'verify_completed' => 'Hesap onaylama işlemi başarılı. Giriş yapabilirsiniz.'
+    'verify_completed' => 'Hesap onaylama işlemi başarılı. Giriş yapabilirsiniz.',
+    'resumes' => 'Özgeçmişler',
+    'no_resume' => 'Özgeçmişiniz bulunmamaktadır',
+    'create_resume' => 'Özgeçmiş Oluştur',
 ];

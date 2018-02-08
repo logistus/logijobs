@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\City;
+use App\Resume;
 use Auth;
 
 class HomeController extends Controller
@@ -22,5 +23,11 @@ class HomeController extends Controller
   public function settings() {
     $cities = City::all();
     return view('settings', compact('cities'));
+  }
+
+  public function resumes() {
+    $cities = City::all();
+    $user_resumes = Auth::user()->resumes;
+    return view('resumes', compact('cities', 'user_resumes'));
   }
 }

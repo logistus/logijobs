@@ -17,6 +17,7 @@ Route::get("/register/confirm/{verify_token}", "AuthController@confirmEmail");
 
 Route::get('/', 'HomeController@index');
 Route::get('/settings', "HomeController@settings");
+Route::get('/resumes', "HomeController@resumes");
 
 Route::post('/account_settings', 'UserController@update');
 Route::post('/change_password', 'UserController@changePassword');
