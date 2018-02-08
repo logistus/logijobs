@@ -20,7 +20,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.Auth::id(),
         ]);
-        User::where("id", Auth::user()->id)->firstOrFail()->updateAcoountSettings($request->all());
+        User::where("id", Auth::id())->firstOrFail()->updateAcoountSettings($request->all());
         generate_flash("success", __("commons.account_settings_updated"));
         return redirect("settings");
     }

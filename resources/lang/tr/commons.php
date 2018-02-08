@@ -52,4 +52,6 @@ return [
     'passive' => 'Pasif',
     'resume_activated' => 'Özgeçmiş aktif hale getirildi.',
     'resume_deactivated' => 'Özgeçmiş pasif hale getirildi.',
+    'are_you_sure' => 'Emin misiniz',
+    'no_access_to_resume' => 'Sadece kendi özgeçmişlerinizi yönetebilirsiniz'
 ];

@@ -21,13 +21,13 @@
                             <div class="header"><a href="/edit_resume/{{ $user_resume->id }}">{{ $user_resume->name }}</a></div>
                             <div class="meta">
                                 <span class="right floated time">
-                                    <a id="update_resume" href="/update_resume/{{ $user_resume->id }}">{{ __('commons.update_date') }}</a>
+                                    <a id="{{ $user_resume->id }}" class="update_resume_date" href="#">{{ __('commons.update_date') }}</a>
                                 </span>
                                 <span class="category">{{ $user_resume->language }}</span>
                             </div>
                         </div>
                         <div class="extra content">
-                            <a class="ui tiny red button" id="delete_resume" href="/delete_resume/{{ $user_resume->id }}">{{ __('commons.delete') }}</a>
+                            <button class="ui tiny red button delete_resume" type="button" id="{{ $user_resume->id }}">{{ __('commons.delete') }}</button>
                             <div class="ui toggle checkbox">
                                 <input type="checkbox" tabindex="0" class="hidden" id="{{ $user_resume->id }}" {{ $user_resume->status == 1 ? "checked=checked" : "" }}>
                                 <label class="resume_status_text_{{ $user_resume->id }}">{{ $user_resume->status == 1 ? __('commons.active') : __('commons.passive') }}</label>
@@ -48,20 +48,51 @@
 @section("otherscripts")
 <script>
     $(function() {
-        $("#edit_resume, #delete_resume, #update_resume").popup();
         $('.ui.toggle.checkbox').checkbox({
             onChange: function() {
                 var id = $(this).attr("id");
-                //console.log(id);
                 $(".loader_"+id).show();
                 $.get("/change_resume_status/"+id, function(data){
-                    var resume = JSON.parse(data);
-                    if(resume.status == 1)
-                        $(".resume_status_text_"+id).html("{{ __('commons.active') }}");
-                    else
-                        $(".resume_status_text_"+id).html("{{ __('commons.passive') }}");
+                    if (data == 0) {
+                        alert("{{ __('commons.no_access_to_resume') }}");
+                    } else {
+                        var resume = JSON.parse(data);
+                        if(resume.status == 1)
+                            $(".resume_status_text_"+id).html("{{ __('commons.active') }}");
+                        else
+                            $(".resume_status_text_"+id).html("{{ __('commons.passive') }}");
+                        $(".resume_updated_at_text_"+id).text("{{ Date::now()->ago() }}");
+                        $(".loader_"+id).hide();
+                    }
+                });
+            }
+        });
+        $(".update_resume_date").click(function(e){
+            e.preventDefault();
+            var id = $(this).attr("id");
+            $(".loader_"+id).show();
+            $.get("/update_resume_date/"+id, function(data){
+                if (data == 1) {
                     $(".resume_updated_at_text_"+id).text("{{ Date::now()->ago() }}");
-                    $(".loader_"+id).hide();
+                    $(".loader_"+id).remove();
+                } else {
+                    alert("{{ __('commons.no_access_to_resume') }}");
+                }
+            });
+        });
+        $(".delete_resume").click(function(e){
+            var id = $(this).attr("id");
+            var ask = confirm("{{ __('commons.are_you_sure') }}?");
+            if (ask) {
+                $.get("/delete_resume/"+id, function(data){
+                    if (data > 0) {
+                        $(".resume_"+id).hide();
+                    } else if(data == 0) {
+                        $(".resume_"+id).hide();
+                        $(".cards").after("<div class='ui message'>{{ __('commons.no_resume') }}</div>");
+                    } else {
+                        alert("{{ __('commons.no_access_to_resume') }}");
+                    }
                 });
             }
         });
