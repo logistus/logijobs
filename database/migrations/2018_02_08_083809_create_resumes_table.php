@@ -20,7 +20,7 @@ class CreateResumesTable extends Migration
             $table->string('language');
             $table->boolean('status')->default(false);
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('updated_at')->useCurrent();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
