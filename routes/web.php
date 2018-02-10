@@ -17,8 +17,10 @@ Route::get("/register/confirm/{verify_token}", "AuthController@confirmEmail");
 
 Route::get('/', 'HomeController@index');
 Route::get('/settings', "HomeController@settings");
-Route::get('/resumes', "HomeController@resumes");
 
+Route::get('/resumes', "ResumeController@index");
+Route::get('/edit_resume/{id}', 'ResumeController@edit');
+Route::post('save_resume', 'ResumeController@store');
 Route::get('change_resume_status/{resume_id}', 'ResumeController@change_resume_status');
 Route::get('update_resume_date/{resume_id}', 'ResumeController@update_resume_date');
 Route::get('delete_resume/{resume_id}', 'ResumeController@destroy');

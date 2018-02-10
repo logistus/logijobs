@@ -10,7 +10,7 @@
     <div class="row">
         <div class="column">
             <div class="ui blue big ribbon label">{{ __('commons.resumes') }}</div>
-            <p style="text-align: right;"><a href="/create_resume" class="ui green button">{{ __('commons.create_resume') }}</a></p>
+            <p style="text-align: right;"><button type="button" class="ui green button">{{ __('commons.create_resume') }}</button></p>
             <h4 class="ui horizontal divider header" style="padding-bottom: 20px;"> {{ __('commons.resumes') }} </h4>
             @if (count($user_resumes) > 0)
                 <div class="ui three stackable cards">
@@ -43,11 +43,59 @@
             @endif
         </div>
     </div>
+    <div class="ui mini modal">
+        <div class="header">{{ __('commons.create_resume') }}</div>
+        <div class="description">
+            <div class="ui fluid form" style="padding: 10px 10px 0 10px;">
+                <div class="sixteen wide field">
+                    <label for="name">{{ __('commons.resume_name') }}</label>
+                    <input type="text" name="name" id="name" placeholder="{{ __('commons.resume_name_placeholder') }}">
+                </div>
+                <div class="inline fields">
+                    <label for="language">{{ __('commons.resume_language') }}</label>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="language" tabindex="0" value="{{ __('commons.turkish') }}" class="hidden">
+                            <label>{{ __('commons.turkish') }}</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="language" tabindex="0" value="{{ __('commons.english') }}" class="hidden">
+                            <label>{{ __('commons.english') }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div href="#" class="ui negative button">{{ __('commons.cancel') }}</div>
+            <div href="#" class="ui positive button" id="create_resume">{{ __('commons.create') }}</div>
+        </div>
+    </div>
 @endsection
 
 @section("otherscripts")
 <script>
     $(function() {
+        $('.ui.radio.checkbox').checkbox();
+        $("#create_resume").click(function(){
+            var name = $("#name").val();
+            var language = $('[name="language"]:checked').val();
+            if (name == "" || language == undefined) {
+                alert("{{ __('commons.name_and_language_required') }}");
+                return false;
+            } else {
+                $.post("/save_resume", {name: name, language: language, _token: '{{csrf_token()}}'}, function(data){
+                    if (data){
+                        location.href = "/edit_resume/"+data;
+                    }
+                });
+            }
+        });
+        $('.ui.green').click(function(){
+            $('.ui.mini.modal').modal('show');
+        });
         $('.ui.toggle.checkbox').checkbox({
             onChange: function() {
                 var id = $(this).attr("id");

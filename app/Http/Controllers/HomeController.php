@@ -7,13 +7,11 @@ use App\User;
 use App\City;
 use App\Resume;
 use Auth;
-use Jenssegers\Date\Date;
 
 class HomeController extends Controller
 {
   public function __construct() {
-      $this->middleware("auth")->except(["index", "updated"]);
-      Date::setLocale(app()->getLocale());
+      $this->middleware("auth")->except(["index"]);
   }
 
   public function index()
@@ -25,11 +23,5 @@ class HomeController extends Controller
   public function settings() {
     $cities = City::all();
     return view('settings', compact('cities'));
-  }
-
-  public function resumes() {
-    $cities = City::all();
-    $user_resumes = Auth::user()->resumes;
-    return view('resumes', compact('cities', 'user_resumes'));
   }
 }
