@@ -12,15 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('cities')->insert(
+        DB::table('cities')->insert([
             ['name' => 'İstanbul Avrupa'],
             ['name' => 'İstanbul Anadolu'],
             ['name' => 'Ankara'],
             ['name' => 'İzmir'],
             ['name' => 'Bursa']
-        );
+        ]);
 
-        DB::table('counties')->insert(
+        DB::table('counties')->insert([
           ['city_id' => 1, 'name' => 'Sarıyer'],
           ['city_id' => 1, 'name' => 'Bahçelievler'],
           ['city_id' => 1, 'name' => 'Bakırköy'],
@@ -60,6 +60,6 @@ class DatabaseSeeder extends Seeder
           ['city_id' => 2, 'name' => 'Kadıköy'],
           ['city_id' => 2, 'name' => 'Üsküdar'],
           ['city_id' => 2, 'name' => 'Adalar']
-        );
+        ]);
     }
 }
