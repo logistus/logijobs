@@ -82,4 +82,8 @@ class CityController extends Controller
     {
         //
     }
+
+    public function get_counties($city_id) {
+        echo City::find($city_id)->counties()->orderBy('name')->get()->toJson();
+    }
 }

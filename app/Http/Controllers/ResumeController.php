@@ -23,11 +23,6 @@ class ResumeController extends Controller
         return view('resume.list', compact('cities', 'user_resumes'));
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $resume = new Resume();
@@ -38,39 +33,16 @@ class ResumeController extends Controller
         echo $resume->id;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Resume  $resume
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Resume $resume)
-    {
-        //
-    }
-
     public function edit($resume_id)
     {
         $cities = City::all();        
-        $resume = Resume::find($resume_id);
+        $resume = Resume::findOrFail($resume_id);
         if ($resume->user->id == Auth::id()) {
             return view('resume.edit', compact('cities', 'resume'));
         } else {
             generate_flash("error", __("commons.no_access_to_resume"));
             return redirect('resumes');
         }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Resume  $resume
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Resume $resume)
-    {
-        //
     }
 
     public function destroy($resume_id)
@@ -95,6 +67,15 @@ class ResumeController extends Controller
     public function update_resume_date($resume_id) {
         if (Resume::find($resume_id)->user->id == Auth::id()) {
             Resume::find($resume_id)->justUpdate();
+            echo 1;
+        } else {
+            echo 0;
+        }
+    }
+
+    public function change_resume_privacy(Request $request, $resume_id) {
+        if (Resume::find($resume_id)->user->id == Auth::id()) {
+            Resume::find($resume_id)->updatePrivacy($request->input("selected"));
             echo 1;
         } else {
             echo 0;

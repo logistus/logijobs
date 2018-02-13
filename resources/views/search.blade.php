@@ -19,7 +19,7 @@
                         </select>
                     </div>
                     <div class="two wide field" style="padding-right: 0; margin-top: 10px; margin-right: 10px; margin-left: 10px;">
-                        <button type="button" class="fluid ui red button">{{ __('commons.search') }}</button>
+                        <button type="button" class="fluid ui orange button">{{ __('commons.search') }}</button>
                     </div>
                 </div>
             </div>

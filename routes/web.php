@@ -23,7 +23,10 @@ Route::get('/edit_resume/{id}', 'ResumeController@edit');
 Route::post('save_resume', 'ResumeController@store');
 Route::get('change_resume_status/{resume_id}', 'ResumeController@change_resume_status');
 Route::get('update_resume_date/{resume_id}', 'ResumeController@update_resume_date');
+Route::post('change_resume_privacy/{resume_id}', 'ResumeController@change_resume_privacy');
+Route::post('change_resume_contact/{resume_id}', 'ResumeContactController@store');
 Route::get('delete_resume/{resume_id}', 'ResumeController@destroy');
+Route::get('get_counties/{city_id}', 'CityController@get_counties');
 
 Route::post('/account_settings', 'UserController@update');
 Route::post('/change_password', 'UserController@changePassword');
