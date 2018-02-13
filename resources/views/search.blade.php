@@ -12,7 +12,7 @@
                     </div>
                     <div class="four wide field" style="padding-right: 0; margin-top: 10px; margin-right: 10px; margin-left: 10px;">
                         <select multiple="" class="ui search selection multiple dropdown">
-                            <option value="">{{ __('commons.select_city') }}</option>
+                            <option value="">{{ __('commons.city') }} {{ __('commons.select') }}</option>
                             @foreach($cities as $city)
                             <option value="{{ $city->id }}">{{ $city->name }}</option>
                             @endforeach
