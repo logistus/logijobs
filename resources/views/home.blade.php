@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="four wide field" style="margin-bottom: 10px;">
-          <select multiple="" class="ui search selection multiple dropdown">
+          <select multiple="" class="ui search selection multiple dropdown" id="search_city">
             <option value="">{{ __('commons.city') }} {{ __('commons.select') }}</option>
             @foreach($cities as $city)
             <option value="{{ $city->id }}">{{ $city->name }}</option>
@@ -33,6 +33,6 @@
 
 @section("otherscripts")
 <script>
-  $('.ui.dropdown').dropdown();
+
 </script>
 @endsection

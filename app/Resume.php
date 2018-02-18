@@ -14,6 +14,10 @@ class Resume extends Model
         return $this->hasOne('App\ResumeContact', 'resume_id');
     }
 
+    public function personal_info() {
+        return $this->hasOne('App\ResumePersonal', 'resume_id');
+    }
+
     public function toggleStatus() {
         $this->status = !$this->status;
         $this->save();

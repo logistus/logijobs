@@ -14,15 +14,22 @@ class UserController extends Controller
         $this->middleware("auth");
     }
 
-    public function update(Request $request)
+    public function updateAccountSettings(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email|unique:users,email,'.Auth::id(),
         ]);
         User::where("id", Auth::id())->firstOrFail()->updateAcoountSettings($request->all());
         generate_flash("success", __("commons.account_settings_updated"));
         return redirect("settings");
+    }
+
+    public function updatePersonalInfo(Request $request)
+    {
+        User::where("id", Auth::id())->firstOrFail()->updatePersonalInfo($request->all());
+        echo 1;
     }
 
     public function changePassword(Request $request) {

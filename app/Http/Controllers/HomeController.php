@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use Illuminate\Http\Request;
 use App\User;
 use App\City;
@@ -24,4 +25,10 @@ class HomeController extends Controller
     $cities = City::all();
     return view('settings', compact('cities'));
   }
+
+    public function infos() {
+        $cities = City::all();
+        $countries = Country::all();
+        return view('infos', compact('cities', 'countries'));
+    }
 }

@@ -36,8 +36,23 @@ class User extends Authenticatable
     }
 
     public function updateAcoountSettings($data) {
-        $this->name = $data["name"];
+        $this->first_name = $data["first_name"];
+        $this->last_name = $data["last_name"];
         $this->email = $data["email"];
+        $this->save();
+    }
+
+    public function updatePersonalInfo($data) {
+        $this->nationalities = $data["nationality"];
+        $this->born_country_id = $data["born_country_id"];
+        $this->gender = $data["gender"];
+        $this->marital_status = $data["marital_status"];
+        $this->licence = $data["licence"];
+        $this->birth_date = $data["birth_date"];
+        $this->military_status = $data["military_status"];
+        $this->military_postpone_date = $data["postpone_date"];
+        $this->military_discharge_date = $data["discharge_date"];
+        $this->military_exempt_reason = $data["exempt_reason"];
         $this->save();
     }
 

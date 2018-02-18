@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('user-list', require('./components/UserList.vue'));
+Vue.component('resume-privacy', require('./components/ResumePrivacy.vue'));
 
 const app = new Vue({
     el: '#app'

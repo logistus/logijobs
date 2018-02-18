@@ -12,12 +12,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->insert([
+           ['first_name' => 'Sinan', 'last_name' => 'Yılmaz', 'email' => 'logistus@gmail.com', 'password' => '$2y$10$od0p4zy6e1o1mJXSh84v1e7568gNw7GuT1fViCCsFypfPMWZ1Jufe',
+           'verified' => true, 'created_at' => '2018-02-17 20:11:02', 'updated_at' => '2018-02-17 20:11:02']
+        ]);
+
+        DB::table('countries')->insert([
+           ['name' => 'Türkiye']
+        ]);
+
         DB::table('cities')->insert([
-            ['name' => 'İstanbul Avrupa'],
-            ['name' => 'İstanbul Anadolu'],
-            ['name' => 'Ankara'],
-            ['name' => 'İzmir'],
-            ['name' => 'Bursa']
+            ['country_id' => 1, 'name' => 'İstanbul Avrupa'],
+            ['country_id' => 1, 'name' => 'İstanbul Anadolu'],
+            ['country_id' => 1, 'name' => 'Ankara'],
+            ['country_id' => 1, 'name' => 'İzmir'],
+            ['country_id' => 1, 'name' => 'Bursa']
         ]);
 
         DB::table('counties')->insert([

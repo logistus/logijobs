@@ -1,10 +1,5 @@
 <template>
-    <div>
-      <ul>
-        <li v-for="task in tasks" v-text="task"></li>
-      </ul>
-      <input type="text" v-model="newTask" @blur="addTask" />
-    </div>
+
 </template>
 
 <script>
@@ -16,7 +11,7 @@
           }
         },
         created() {
-          axios.get("/userlist").then(response => (this.tasks = response.data));
+          //axios.get("/userlist").then(response => (this.tasks = response.data));
         },
         methods: {
           addTask() {

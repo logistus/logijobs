@@ -9,7 +9,7 @@ class ResumeContact extends Model
     protected $table = 'resume_contacts';
     public $timestamps = false;
 
-    protected $fillable = ['resume_id', 'city_id', 'county_id', 'home_phone', 'mobile_phone', 'email', 'personal_web'];
+    protected $fillable = ['resume_id', 'city_id', 'county_id', 'home_phone', 'mobile_phone'];
 
     public function resume() {
         return $this->belongsTo('App\Resume');
@@ -21,8 +21,6 @@ class ResumeContact extends Model
         $this->county_id = $data['county_id'];
         $this->home_phone = $data['home_phone'];
         $this->mobile_phone = $data['mobile_phone'];
-        $this->email = $data['email'];
-        $this->personal_web = $data['personal_web'];
         $this->resume->justUpdate();
         $this->save();
     }

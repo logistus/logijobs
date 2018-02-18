@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use App\Resume;
 use App\City;
 use Illuminate\Http\Request;
@@ -35,10 +36,12 @@ class ResumeController extends Controller
 
     public function edit($resume_id)
     {
-        $cities = City::all();        
+        $countries = Country::all();
+        $cities = City::all();
         $resume = Resume::findOrFail($resume_id);
-        if ($resume->user->id == Auth::id()) {
-            return view('resume.edit', compact('cities', 'resume'));
+        $user = Auth::user();
+        if ($user->can('update', $resume)) {
+            return view('resume.edit', compact('cities','countries', 'resume'));
         } else {
             generate_flash("error", __("commons.no_access_to_resume"));
             return redirect('resumes');
@@ -56,17 +59,21 @@ class ResumeController extends Controller
     }
 
     public function change_resume_status($resume_id) {
-        if (Resume::find($resume_id)->user->id == Auth::id()) {
-            Resume::find($resume_id)->toggleStatus();
-            echo Resume::find($resume_id)->toJson();
+        $resume = Resume::findOrFail($resume_id);
+        $user = Auth::user();
+        if ($user->can('update', $resume)) {
+            $resume->toggleStatus();
+            echo $resume->pluck('status');
         } else {
             echo 0;
         }
     }
 
     public function update_resume_date($resume_id) {
-        if (Resume::find($resume_id)->user->id == Auth::id()) {
-            Resume::find($resume_id)->justUpdate();
+        $resume = Resume::findOrFail($resume_id);
+        $user = Auth::user();
+        if ($user->can('update', $resume)) {
+            $resume->justUpdate();
             echo 1;
         } else {
             echo 0;
@@ -74,8 +81,10 @@ class ResumeController extends Controller
     }
 
     public function change_resume_privacy(Request $request, $resume_id) {
-        if (Resume::find($resume_id)->user->id == Auth::id()) {
-            Resume::find($resume_id)->updatePrivacy($request->input("selected"));
+        $resume = Resume::findOrFail($resume_id);
+        $user = Auth::user();
+        if ($user->can('update', $resume)) {
+            $resume->updatePrivacy($request->input("selected"));
             echo 1;
         } else {
             echo 0;
