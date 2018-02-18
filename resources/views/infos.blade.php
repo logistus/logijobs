@@ -2,6 +2,11 @@
 
 @section("othercss")
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+    <style>
+        @media screen and (max-width: 992px) {
+            #military_status_field { margin-top: 10px; }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -73,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="eight wide computer sixteen wide mobile column">
-                                <div class="field">
+                                <div class="field" id="military_status_field">
                                     <label for="military_status">{{ __('commons.military_status') }}</label>
                                     <select class="ui search dropdown" id="military_status">
                                         <option value="">{{ __('commons.select') }}</option>

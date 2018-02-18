@@ -11,7 +11,11 @@
 </head>
 <body>
 <div class="ui grid container" style="margin-top: 0; margin-bottom: 0;">
-    <div class="eight wide left aligned column"><a href="/"><img src="{{ asset('img/logijobs.png') }}" alt="Logi Jobs"></a>
+    <div class="eight wide left aligned computer only tablet only column">
+        <a href="/"><img src="{{ asset('img/logijobs.png') }}" alt="Logi Jobs"></a>
+    </div>
+    <div class="eight wide left aligned mobile only column">
+        <a href="/"><img src="{{ asset('img/logijobs_mobile.png') }}" alt="Logi Jobs"></a>
     </div>
     <div class="eight wide right aligned column" style="margin-top: 10px">
         @if(Auth::check())
