@@ -7,6 +7,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Logi Jobs') }}</title>
     <link rel="stylesheet" href="{{ asset('css/semantic.css') }}"/>
+    <style>
+        @media screen and (max-width: 485px) {
+            #register_btn { margin-top: 10px; }
+        }
+    </style>
     @yield("othercss")
 </head>
 <body>
@@ -39,8 +44,8 @@
                 </div>
             </div>
         @else
-            <a href="/login" class="ui basic blue button">{{ __('commons.login') }}</a>
-            <a href="/register" class="ui blue button">{{ __('commons.register') }}</a>
+            <a href="/login" id="login_btn" class="ui basic blue button">{{ __('commons.login') }}</a>
+            <a href="/register" id="register_btn" class="ui blue button">{{ __('commons.register') }}</a>
         @endif
     </div>
 </div>
