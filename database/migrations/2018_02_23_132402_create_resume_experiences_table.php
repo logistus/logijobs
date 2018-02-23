@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResumeContactsTable extends Migration
+class CreateResumeExperiencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,23 @@ class CreateResumeContactsTable extends Migration
      */
     public function up()
     {
-        Schema::create('resume_contacts', function (Blueprint $table) {
+        Schema::create('resume_experiences', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('resume_id');
-            $table->unsignedInteger('country_id')->nullable();
-            $table->unsignedInteger('city_id')->nullable();
-            $table->unsignedInteger('county_id')->nullable();
-            $table->string('email')->nullable();
-            $table->string('home_phone', 15)->nullable();
-            $table->string('mobile_phone', 15)->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('country_id');
+            $table->unsignedInteger('city_id');
+            $table->string('start_date', 7);
+            $table->boolean('still_working');
+            $table->string('end_date', 7)->nullable();
+            $table->string('company_name');
+            $table->text('job_description')->nullable();
+            $table->string('job_title');
+            $table->unsignedInteger('work_type');
             $table->foreign('resume_id')->references('id')->on('resumes');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('county_id')->references('id')->on('counties');
+            $table->foreign('work_type')->references('id')->on('work_types');
         });
     }
 
@@ -38,6 +40,6 @@ class CreateResumeContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resume_contacts');
+        Schema::dropIfExists('resume_experiences');
     }
 }

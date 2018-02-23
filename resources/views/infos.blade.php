@@ -13,9 +13,7 @@
     @include('search')
     <div class="ui container segment grey stacked grid">
         <div class="row">
-            <div class="four wide computer sixteen wide mobile column">
-                @include('settings_divided_list')
-            </div>
+            @include('settings_divided_list')
             <div class="twelve wide computer sixteen wide mobile column">
                 <div class="ui icon message">
                     <i class="info icon"></i>
@@ -29,6 +27,14 @@
                     <div class="ui grid">
                         <div class="row">
                             <div class="eight wide computer sixteen wide mobile column">
+                                <div class="required field">
+                                    <label for="first_name">{{ __('commons.first_name') }}</label>
+                                    <input type="text" id="first_name" name="first_name" value="{{ Auth::user()->first_name }}">
+                                </div>
+                                <div class="required field">
+                                    <label for="last_name">{{ __('commons.last_name') }}</label>
+                                    <input type="text" id="last_name" name="last_name" value="{{ Auth::user()->last_name }}">
+                                </div>
                                 <div class="field">
                                     <label for="nationality">{{ __('commons.nationality') }}</label>
                                     <select multiple="" class="ui search dropdown" id="nationality" name="nationality">
@@ -226,6 +232,8 @@
 
             $("#personal_info").submit(function (e) {
                 e.preventDefault();
+                let first_name = $("#first_name").val();
+                let last_name = $("#last_name").val();
                 let nationatilies = $("#nationality").dropdown('get value').toString();
                 let born_country_id = $("#born_country").dropdown('get value').toString();
                 let gender = $("[name='gender']:checked").val() != undefined ? $("[name='gender']:checked").val() : null;
@@ -238,6 +246,8 @@
                 let exempt_reason = $("#exempt_reason").val();
                 $("#update_personals").addClass("loading");
                 $.post("/personal_info", {
+                    first_name: first_name,
+                    last_name: last_name,
                     nationality: nationatilies,
                     born_country_id: born_country_id,
                     gender: gender,
@@ -250,9 +260,11 @@
                     exempt_reason: exempt_reason,
                     _token: '{{csrf_token()}}'
                 }, function (data) {
+                    $("#update_personals").removeClass("loading");
                     if (data == 1) {
                         $(".ui.icon.message").after("<div class='ui success message'><i class='close icon'></i>{{ __('commons.personal_infos_updated') }}");
-                        $("#update_personals").removeClass("loading");
+                    } else {
+                        return true;
                     }
                 });
             });

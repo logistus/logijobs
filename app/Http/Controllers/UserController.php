@@ -4,48 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Notifications\PasswordChanged;
 
 class UserController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware("auth");
     }
 
-    public function updateAccountSettings(Request $request)
+    public function updateEmail(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users,email,'.Auth::id(),
-        ]);
-        User::where("id", Auth::id())->firstOrFail()->updateAcoountSettings($request->all());
-        generate_flash("success", __("commons.account_settings_updated"));
-        return redirect("settings");
+        $user = User::where("id", Auth::id());
+        if (User::where('email', $request->input('email'))->where('id', '!=', Auth::id())->count() == 0) {
+            $user->firstOrFail()->updateAcoountSettings($request->all());
+        } else {
+            echo 0;
+        }
     }
 
     public function updatePersonalInfo(Request $request)
     {
-        User::where("id", Auth::id())->firstOrFail()->updatePersonalInfo($request->all());
-        echo 1;
+        $user = User::where("id", Auth::id())->firstOrFail();
+        $user->updatePersonalInfo($request->all());
     }
 
-    public function changePassword(Request $request) {
-        $request->validate([
-            'current_password' => 'required|min:6',
-            'new_password' => 'required|confirmed|min:6',
-        ]);
+    public function changePassword(Request $request)
+    {
+        $user = User::where("id", Auth::id())->firstOrFail();
         if (Hash::check($request->input("current_password"), Auth::user()->password)) {
-            User::where("id", Auth::id())->firstOrFail()->changePassword($request->input("new_password_confirmation"));
-            Auth::user()->notify(new PasswordChanged());
-            Auth::loginUsingId(Auth::id());
-            generate_flash("success", __("commons.password_changed"));
-            return redirect("settings");
+            $user->changePassword($request->input("new_password"));
         } else {
-            generate_flash("error", __("commons.invalid_current_password"));
-            return redirect("settings");
+            echo 0; // invalid current password
         }
     }
 

@@ -30,7 +30,7 @@
                     <i class="dropdown icon"></i>
                     <div class="menu">
                         <a href="/settings" class="item">{{ __('commons.settings') }}</a>
-                        <a href="/infos" class="item">{{ __('commons.infos') }}</a>
+                        <a href="/infos" class="item">{{ __('commons.personal_info') }}</a>
                         <a href="/resume" class="item">{{ __('commons.resumes') }}</a>
                         <a href="#" class="item">{{ __('commons.applied_jobs') }}</a>
                         <a href="#" class="item">{{ __('commons.saved_searches') }}</a>
@@ -58,8 +58,6 @@
         <a class="ui icon item"><i class="align justify icon"></i>&nbsp;&nbsp;Menu</a>
     </div>
 </div>
-@include("flash")
-@include("errors")
 @yield('content')
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="{{ asset('js/semantic.js') }}"></script>

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Policies\ResumeEditPolicy;
+use App\Policies\UserEditPolicy;
 use App\Resume;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

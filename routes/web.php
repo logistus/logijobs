@@ -29,9 +29,16 @@ Route::patch('resume/{resume_id}/update/status', 'ResumeController@change_resume
 Route::patch('resume/{resume_id}/update/date', 'ResumeController@update_resume_date');
 Route::patch('resume/{resume_id}/update/privacy', 'ResumeController@change_resume_privacy');
 
-Route::post('change_resume_contact/{resume_id}', 'ResumeContactController@store');
-Route::get('get_counties/{city_id}', 'CityController@get_counties');
+Route::post('resume_contact/{resume_id}', 'ResumeContactController@store');
 
-Route::post('/account_settings', 'UserController@updateAccountSettings');
+Route::get('get_counties/{city_id}', 'CityController@get_counties');
+Route::get('get_cities/{country_id}', 'CountryController@get_cities');
+
+Route::get('delete_experience/{experience_id}','ResumeExperienceController@delete');
+Route::get('get_experience_details/{experience_id}', 'ResumeExperienceController@get_details');
+Route::post('resume_experience/{resume_id}', 'ResumeExperienceController@store');
+Route::post('edit_experience/{experience_id}', 'ResumeExperienceController@edit');
+
+Route::post('/change_email', 'UserController@updateEmail');
 Route::post('/personal_info', 'UserController@updatePersonalInfo');
 Route::post('/change_password', 'UserController@changePassword');

@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('countries')->insert([
-           ['name' => 'Türkiye']
+           ['name' => 'Türkiye'],
+           ['name' => 'Almanya'],
+           ['name' => 'Bulgaristan'],
+           ['name' => 'Yunanistan'],
         ]);
 
         DB::table('cities')->insert([
@@ -69,6 +72,11 @@ class DatabaseSeeder extends Seeder
           ['city_id' => 2, 'name' => 'Kadıköy'],
           ['city_id' => 2, 'name' => 'Üsküdar'],
           ['city_id' => 2, 'name' => 'Adalar']
+        ]);
+
+        DB::table('work_types')->insert([
+           ['name' => 'Tam Zamanlı', 'lang' => 'tr'],
+           ['name' => 'Yarı Zamanlı', 'lang' => 'tr'],
         ]);
     }
 }

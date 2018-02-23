@@ -54,6 +54,6 @@ class ResumeEditPolicy
      */
     public function delete(User $user, Resume $resume)
     {
-        //
+        return $user->id === $resume->user_id;
     }
 }

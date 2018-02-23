@@ -14,8 +14,8 @@ class Resume extends Model
         return $this->hasOne('App\ResumeContact', 'resume_id');
     }
 
-    public function personal_info() {
-        return $this->hasOne('App\ResumePersonal', 'resume_id');
+    public function experiences() {
+        return $this->hasMany('App\ResumeExperience', 'resume_id');
     }
 
     public function toggleStatus() {
@@ -30,6 +30,11 @@ class Resume extends Model
 
     public function updatePrivacy($privacy_id) {
         $this->privacy = $privacy_id;
+        if ($this->isDirty('privacy')) {
+            echo 1;
+        } else {
+            echo 2;
+        }
         $this->save();
     }
 }

@@ -7,9 +7,10 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ConfirmEmail extends Notification
+class EmailChanged extends Notification
 {
     use Queueable;
+
     public $verfiy_token;
     public $first_name;
 
@@ -44,10 +45,10 @@ class ConfirmEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject(config("app.name", "Logi Jobs")." - ".__("commons.verify_account"))
-                    ->greeting(__("commons.hi")." ".$this->first_name)
-                    ->line(__("commons.register_completed_message"))
-                    ->action(__("commons.verify_account"), url('/register/confirm', $this->verify_token));
+            ->subject(config("app.name", "Logi Jobs")." - ".__("commons.verify_account"))
+            ->greeting(__("commons.hi")." ".$this->first_name)
+            ->line(__("commons.email_changed_txt"))
+            ->action(__("commons.verify_account"), url('/register/confirm', $this->verify_token));
     }
 
     /**

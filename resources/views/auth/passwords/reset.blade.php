@@ -5,7 +5,6 @@
     <input type="hidden" name="token" value="{{ $token }}">
     {!! csrf_field() !!}
     <h1>Reset Password</h1>
-    @include("errors")
     <div class="form-group">
         <label for="email">Email address</label>
         <input type="email" class="form-control" id="email" name="email" value="{{ $email or old('email') }}" required>

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Country;
 use App\Resume;
 use App\City;
+use App\ResumeExperience;
+use App\WorkType;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use Jenssegers\Date\Date;
 
 class ResumeController extends Controller
@@ -38,10 +41,15 @@ class ResumeController extends Controller
     {
         $countries = Country::all();
         $cities = City::all();
+        $work_types = WorkType::where('lang', app()->getLocale())->get();
         $resume = Resume::findOrFail($resume_id);
+        $experiences = ResumeExperience::where('resume_id', $resume_id)->orderBy('still_working', 'desc')
+            ->orderBy(DB::raw('right(end_date, 4)'), 'desc')
+            ->orderBy(DB::raw('left(end_date, 2)'), 'desc')
+            ->get();
         $user = Auth::user();
         if ($user->can('update', $resume)) {
-            return view('resume.edit', compact('cities','countries', 'resume'));
+            return view('resume.edit', compact('cities','countries', 'work_types', 'resume', 'experiences'));
         } else {
             generate_flash("error", __("commons.no_access_to_resume"));
             return redirect('resumes');
@@ -50,8 +58,11 @@ class ResumeController extends Controller
 
     public function destroy($resume_id)
     {
-        if (Resume::find($resume_id)->user->id == Auth::id()) {
-            Resume::find($resume_id)->delete();
+        $resume = Resume::findOrFail($resume_id);
+        $user = Auth::user();
+        if ($user->can('delete', $resume)) {
+            $resume->contact_info()->delete();
+            $resume->delete();
             echo Resume::where('user_id', Auth::id())->count();
         } else {
             echo -1;
@@ -85,7 +96,6 @@ class ResumeController extends Controller
         $user = Auth::user();
         if ($user->can('update', $resume)) {
             $resume->updatePrivacy($request->input("selected"));
-            echo 1;
         } else {
             echo 0;
         }

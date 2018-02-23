@@ -86,7 +86,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-        $user->notify(new ConfirmEmail($user->verify_token));
+        $user->notify(new ConfirmEmail($user->verify_token, $user->first_name));
         generate_flash("success", __('commons.register_complete'));
     }
 }
